@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="css/main.css"> -->
+<link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet">
+<style type="text/css">
+  
+  .header{
+ background-image: url("/static/images/q.jpeg");
+ background-attachment: fixed;
+ background-size: cover;
+ background-position: center;
+}
+
+</style>
+</head>
+<body class="header">
+
+<div class="navbar">
+  <br><a class="navbar-brand" href="#"><img src="/static/images/logo.png" alt="image" height="100 px" width="100 px"></a>
+  <img src="/static/images/firsta.png" alt="image"  width="250 px"><br><br>
+  <a href="index.html"><b>Home</a>
+  <a href="about.html">About</a>
+   
+   <a href="gallery.html">Gallery</a>
+   <div class="dropdown">
+    <button class="dropbtn"><b>Classes 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="404.html">Admissions</a>
+      <a href="500.html">Tution fee</a>
+      
+    </div>
+  </div> 
+
+  <div class="dropdown">
+    <button class="dropbtn"><b>Login
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="{{url_for('signup')}}">Sign Up</a>
+      <a href="{{url_for('log')}}">Login</a>
+      
+    </div>
+  </div> 
+  <div class="dropdown">
+    <button class="dropbtn"><b>Blogs
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      
+      <a href="{{url_for('blogs')}}">Events</a>
+       <a href="404.html">Achievements</a>
+       <a href="500.html">Facilities</a>
+      
+    </div>
+  </div> 
+  <a href="staff.html">Faculties</a>
+  <a href="contact.html">Contact</a>
+
+<div class="search-container">
+    <form action="/action_page.html">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+  </div>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <div class="container">
+  <div class="content">
+    Hello {{session['username']}}!,
+<h1>Royals The First Academy International Residential School,Kochi</h1>
+<p>Student life at The First Academy is a rich and vibrant experience.
+Striving to provide a well balanced spiritual, academic and social well-being, students are encouraged to both serve and participate in and beyond our community. With plenty of room for opportunity, students can engage in over forty sports, the arts, and equally many student driven clubs.</p><br><br><br>
+</div></div>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+<script type="text/javascript" src='../scripts/js.js'></script>
+
+</body>
+<footer>
+	<a class="navbar-brand" href="#"><img src="/static/images/firsta.png" alt="image"  width="250 px"></a>
+  <p><br>
+  <a href="#">firstacademy@org.in</a></p>
+</footer>
+
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head></head>
+   <body>
+      
+      
+      {%- for message in get_flashed_messages() %}
+         {{ message }}
+      {%- endfor %}
+      
+      <h3><a href = "{{ url_for('signup') }}">Edit Profile</a></h3>
+      <form>
+      <table border='3'>
+         
+            
+
+               <tr> <td>Email</td><td><input type="text" value="{{result.email}}" name="email" readonly=""></td> </tr>
+              <tr><td>Full Name</td><td><input type="text" value="{{result.name}}" name="name"></td></tr>
+             <tr> <td>Age</td><td><input type="text" value="{{result.age}}" name="age"></td> </tr>
+             <tr> <td>Address</td><td><input type="text" value="{{result.address}}" name="address"></td></tr>
+             <tr><td>Contact</td><td><input type="text" value="{{result.contact_no}}" name="contact_no"></td></tr>
+              <tr><td>Password</td><td><input type="text" value="{{result.password}}" name="password"></td></tr>
+              <tr><td>UserType</td><td><input type="text" value="{{result.usertype}}" name="usertype"></td></tr>
+                    
+      </table>
+    </form>
+   </body>
+</html> 

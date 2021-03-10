@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/contact.css"> -->
+<link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet">
+
+<link href="{{ url_for('static',filename='contact.css')}}" rel="stylesheet">
+<style>
+button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+button {background-color: #020449;} 
+.container {
+  border-radius: 3px;
+  /*background:#000080;*/
+  background-image:url("/static/images/campus.jpg");
+   
+  padding: 10px;
+}
+
+
+</style>
+
+</head>
+<body >
+
+<div class="navbar">
+  <br><a class="navbar-brand" href="#"><img src="/static/images/logo.png" alt="image" height="100 px" width="100 px"></a>
+  <img src="/static/images/firsta.png" alt="image"  width="250 px"><br><br>
+  <a href="index.html"><b>Home</a>
+  <a href="about.html">About</a>
+   
+   <a href="gallery.html">Gallery</a>
+   <div class="dropdown">
+    <button class="dropbtn"><b>Classes 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="404.html">Admissions</a>
+      <a href="500.html">Tution fee</a>
+      
+    </div>
+  </div> 
+
+  <div class="dropdown">
+    <button class="dropbtn"><b>Login
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="login.html">Sign Up</a>
+      <a href="login.html">Login</a>
+      
+    </div>
+  </div> 
+  <div class="dropdown">
+    <button class="dropbtn"><b>Blogs
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      
+      <a href="blog.html">Events</a>
+       <a href="404.html">Achievements</a>
+       <a href="500.html">Facilities</a>
+      
+    </div>
+  </div> 
+  <a href="staff.html">Faculties</a>
+  <a href="contact.html">Contact</a>
+
+<!-- <div class="search-container">
+    <form action="/action_page.html">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div> -->
+  </div>
+
+
+<br><br>
+
+<div class="container">
+  <div style="text-align:center">
+    <h1>Contact Us</h1>
+    <p>Swing by for a cup of coffee, or leave us a message:</p>
+  </div>
+  <div class="row">
+    <div class="column">
+      <button onclick="document.location='sitemap.html'" class="btn green">View Site Map</button>
+      <!-- <img src="images/IMG.jpg" style="width:100%"> -->
+
+      <h3>The First Academy
+2667 Kakkanad Kochi
+Kerala, IN 32805
+
+Phone: 407-206-8600
+Fax:407-206-8700
+info@firstacademy.org</h3>
+<a href="#" class="fa fa-facebook"></a>
+<a href="#" class="fa fa-twitter"></a>
+<a href="#" class="fa fa-google"></a>
+<a href="#" class="fa fa-linkedin"></a>
+<a href="#" class="fa fa-youtube"></a>
+
+    </div>
+    <div class="column">
+      <form action="/action_page.php">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="firstname" placeholder="Your name..">
+        <label for="lname">Last Name</label>
+        <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+        <label for="country">Country</label>
+        <select id="country" name="country">
+          <option value="australia">India</option>
+          <option value="canada">Canada</option>
+          <option value="usa">USA</option>
+        </select>
+        <label for="subject">Subject</label>
+        <textarea id="subject" name="subject" placeholder="Write something.." style="height:170px"></textarea>
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<br><br>
+
+
+
+  <script type="text/javascript" src='../js/main.js'></script>
+
+</body>
+<footer>
+  <a class="navbar-brand" href="#"><img src="/static/images/firsta.png" alt="image"  width="250 px"></a>
+  <p><br>
+  <a href="#">firstacademy@org.in</a></p>
+</footer>
+
+</html>

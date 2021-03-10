@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/blog.css"> -->
+<link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet">
+
+<link href="{{ url_for('static',filename='blog.css')}}" rel="stylesheet">
+<style>
+button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+button {background-color: #020449;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <br><a class="navbar-brand" href="#"><img src="/static/images/logo.png" alt="image" height="100 px" width="100 px"></a>
+  <img src="/static/images/firsta.png" alt="image"  width="250 px"><br><br>
+  <a href="index.html"><b>Home</a>
+  <a href="about.html">About</a>
+   
+   <a href="gallery.html">Gallery</a>
+   <div class="dropdown">
+    <button class="dropbtn"><b>Classes 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="404.html">Admissions</a>
+      <a href="500.html">Tution fee</a>
+      
+    </div>
+  </div> 
+
+  <div class="dropdown">
+    <button class="dropbtn"><b>Login
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="login.html">Sign Up</a>
+      <a href="login.html">Login</a>
+      
+    </div>
+  </div> 
+  <div class="dropdown">
+    <button class="dropbtn"><b>Blogs
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      
+      <a href="blog.html">Events</a>
+       <a href="404.html">Achievements</a>
+       <a href="500.html">Facilities</a>
+      
+    </div>
+  </div> 
+  <a href="staff.html">Faculties</a>
+  <a href="contact.html">Contact</a>
+
+<div class="search-container">
+    <form action="/action_page.html">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+  </div>
+
+
+
+<!-- MAIN (Center website) -->
+<div class="main">
+
+<h1>EVENTS</h1>
+<button>Add Blogs</button>
+  <button>Edit Blogs</button>
+  <button>Delete Blogs</button>
+<hr>
+
+<h2>TFA Day 2021</h2>
+<!-- Portfolio Gallery Grid -->
+
+<div class="row">
+
+  
+    <div class="content">
+      <img src="/static/images/event10.jpg" alt="Mountains" style="width:100%">
+      <h3>The First Academy of the Arts is a fee-based after school art program offering courses with a far larger repertoire of potential activities: you can choose instruments, singing, dance, gymnastics; or expand in the mind and body with academic or spiritual guided classes. The Extra Curricular Courses take place weekly, usually during lunch, and prepare students for Choir, Band, Steel Drums and other options.</h3>
+      <p><a href="#">See More..</p>
+    </div>
+  </div>
+
+
+
+
+  <!-- <div class="column">
+    <div class="content">
+      <img src="images/p11.jpg" alt="Lights" style="width:100%">
+      <h3>Daniel Smith</h3>
+      <p>Director OF TFA</p>
+    </div>
+  </div>
+ -->
+</div>
+
+<h2>Sports Day 2021</h2>
+<div class="row">
+  <div class="column">
+    <div class="content">
+      <img src="/static/images/event3.jpg" alt="Mountains" style="width:100%">
+      <h3>TFA Philosophy</h3>
+      <p>The purpose and mission of the Department of Athletics at The First Academy is to fulfill the mission of TFA through competition in interscholastic sports, by implementing Biblical principles in our instruction, and by setting Godly examples. The goal of the Department of Athletics is to do our best for the Lord (Col. 3:23). It is the desire of every coach at The First Academy to use interscholastic sports as a means of developing champions for TFA.</p>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="content">
+      <img src="/static/images/event2.jpg" alt="Mountains" style="width:100%">
+      <h3>Our Mission</h3>
+      <p>We strive to promote honesty, integrity, humility, loyalty, unity and encouraging total character development of our student-athletes. These traits are non-negotiable and are essential to building a “TEAM”. This will include all coaches promoting and encouraging the success of other programs and emphasizing the need to share multi-sport athletes and create a winning environment by displaying a positive attitude and providing daily encouragement to those under our leadership. </p>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="content">
+      <img src="/static/images/x3.jpeg" alt="Mountains" style="width:100%">
+      <h3>Peter Sam</h3>
+      <p>Head Coach Athletics</p>
+    </div>
+  </div>
+  <div class="column">
+    <div class="content">
+      <img src="/static/images/x7.jpeg" alt="Mountains" style="width:100%">
+      <h3>Lidiya Damon</h3>
+      <p>Head Coach Games</p>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="row">
+  <div class="column">
+    <div class="content">
+      <img src="images/l2.jpeg" alt="Mountains" style="width:100%">
+      <h3>Cameron Diaz</h3>
+      <p>Head-Sports</p>
+    </div>
+  </div>
+  <div class="column">
+    <div class="content">
+      <img src="images/x10.jpg" alt="Mountains" style="width:100%">
+      <h3>Kate Mark</h3>
+      <p>HR - TFA</p>
+    </div>
+  </div>
+  <div class="column">
+    <div class="content">
+      <img src="images/l5.jpg" alt="Mountains" style="width:100%">
+      <h3>Natalie Cooper</h3>
+      <p>Head - Computer Science</p>
+    </div>
+  </div>
+  <div class="column">
+    <div class="content">
+      <img src="images/l1.jpeg" alt="Mountains" style="width:100%">
+      <h3>Julia Roberts</h3>
+      <p>System Admin</p>
+    </div>
+  </div>
+</div>
+ -->
+<!-- END MAIN -->
+</div>
+
+<script type="text/javascript" src='../js/main.js'></script>
+
+</body>
+<footer>
+  <a class="navbar-brand" href="#"><img src="/static/images/firsta.png" alt="image"  width="250 px"></a>
+  <p><br>
+  <a href="#">firstacademy@org.in</a></p>
+</footer>
+
+</html>

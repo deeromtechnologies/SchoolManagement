@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/login.css"> -->
+<link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet">
+
+<link href="{{ url_for('static',filename='login.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- Bootstrap CSS -->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css'>
+<!-- Font Awesome CSS -->
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.3.1/css/all.css'>
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box}
+body {
+  background-color: #E6E6FA;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 50%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 50%;
+  opacity: 0.9;
+}
+select {
+    width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+
+}
+
+button:hover {
+  opacity:1;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  padding: 14px 20px;
+  background-color: #020449;
+}
+
+.signupbtn {
+background-color: #daa520;
+width: 50%;
+
+    }
+
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+  float: left;
+  width: 20%;
+}
+
+/* Add padding to container elements */
+.container {
+  padding: 100px;
+}
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .cancelbtn, .signupbtn {
+     width: 100%;
+  }
+}
+
+  .abhi{
+ background-image: url("/static/images/ro.jpg");
+ background-attachment: fixed;
+ background-size: cover;
+ background-position: center;
+}
+</style>
+</head>
+<body class="abhi">
+<div class="navbar">
+  <br><a class="navbar-brand" href="#"><img src="/static/images/logo.png" alt="image" height="100 px" width="100 px"></a>
+  <img src="/static/images/firsta.png" alt="image"  width="250 px"><br><br>
+  
+   <a href="about.html"><b>About</b></a>
+   <a href="gallery.html"><b>Gallery</b></a>
+   <a href="staff.html"><b>Faculties</b></a>
+  <a href="contact.html"><b>Contact</b></a>
+  <a href="index.html"><b>Home</b></a>
+   
+</div>
+<form action="#" method="post" style="border:1px solid #ccc">
+  <div class="container">
+    <h1>Login</h1>
+    <hr>
+
+    <label for="email"><b>Email Id</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required><br>
+
+    <label for="password"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required><br>
+    
+    <label>
+      <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+    </label>
+
+    <div class="clearfix">
+     
+      <center><button type="submit" class="signupbtn">Login</button>
+    </div>
+</div>
+
+</form>
+<script type="text/javascript" src='../scripts/js.js'></script>
+<!-- jQuery -->
+<script src='https://code.jquery.com/jquery-3.3.1.slim.min.js'></script>
+<!-- Popper JS -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
+<!-- Bootstrap JS -->
+<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
+
+</body>
+<footer>
+  <a class="navbar-brand" href="#"><img src="/static/images/firsta.png" alt="image"  width="250 px"></a>
+  <p><br>
+  <a href="#">firstacademy@org.in</a></p>
+</footer>
+
+</html>
