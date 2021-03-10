@@ -127,29 +127,36 @@ background-color: #daa520;
     <h1>Sign Up</h1>
     <p>Please fill in this form to create an account.</p>
     <hr>
-
-    <label for="email"><b>Email Id</b></label>
-    <input type="text"  name="email" required>
+    {{ form.csrf_token }}
+    <label for="email"><b>{{ form.email.label }}</b></label>
+    <!-- <input type="text"  name="email" required> -->
+    {{ form.email() }}
     <!-- <label for="name"><b>Full Name</b></label>
     <input type="text" placeholder="Enter Full Name" name="name" required>
  -->
-    <label for="name"><b>Full Name</b></label>
-    <input type="text" placeholder="Enter Name" name="name" required>
-    <label for="age"><b>Age</b></label>
-    <input type="text" placeholder="Enter Email" name="age" required>
+    <label for="name"><b>{{ form.name.label }}</b></label>
+    {{ form.name() }}
+   <!--  <input type="text" placeholder="Enter Name" name="name" required> -->
+    <label for="age"><b>{{ form.age.label }}</b></label>
+     {{ form.age() }}
+    <!-- <input type="text" placeholder="Enter Email" name="age" required> -->
 
-    <label for="address"><b>Address</b></label>
-    <input type="text" placeholder="Enter Email" name="address" required>
+    <label for="address"><b>{{ form.address.label}}</b></label>
+    {{ form.address() }}
+    <!-- <input type="text" placeholder="Enter Email" name="address" required> -->
 
-    <label for="contact_no"><b>Contact_No</b></label>
-    <input type="text" placeholder="Enter mobile" name="contact_no" required>
+    <label for="contact_no"><b>{{ form.contact_no.label}}</b></label>
+    {{ form.contact_no(size=10) }}
+    <!-- <input type="text" placeholder="Enter mobile" name="contact_no" required> -->
 
 
-    <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required>
+    <label for="password"><b>{{ form.password.label}}</b></label>
+     {{ form.password() }}
+    <!-- <input type="password" placeholder="Enter Password" name="password" required> -->
 
-    <label for="psw"><b>Repeat Password</b></label>
-    <input type="password" placeholder="Repeat Password" name="psw" required>
+    <label for="psw"><b>{{ form.password1.label}}</b></label>
+     {{ form.password() }}
+    <!-- <input type="password" placeholder="Repeat Password" name="psw" required> -->
     <label for="usertype"><b>User Type</b></label>
     <select id="cars" name="usertype">
   <option value="fac">Faculty</option>
@@ -157,8 +164,9 @@ background-color: #daa520;
   <option value="paren">Parent</option>
   
 </select>
-    <label for="image"><b>Profile Picture</b></label>
-    <input type="text" placeholder="Ente text here" name="image" required>
+    <label for="image"><b>{{ form.image.label}}</b></label>
+     {{ form.image() }}
+    <!-- <input type="text" placeholder="Ente text here" name="image" required> -->
 
     <label>
       <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me

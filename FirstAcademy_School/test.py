@@ -3,6 +3,12 @@ from flask_sqlalchemy import SQLAlchemy
 import bpdb
 import uuid
 from datetime import datetime
+from flask_wtf import FlaskForm
+from wtforms import StringField
+from wtforms.validators import DataRequired
+from wtforms import Form, BooleanField, StringField,IntegerField, PasswordField, validators
+
+
 now = datetime.now()
 id = uuid.uuid1()
 app = Flask(__name__)
@@ -10,6 +16,33 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///First_Academy.sqlite3'
 db = SQLAlchemy(app)
 
 app.secret_key="4322"
+
+
+
+class MyForm(FlaskForm):
+    email = StringField('Email Address',validators=[DataRequired(),validators.Length(min=6, max=35)])
+    name = StringField('name', validators=[DataRequired()])
+    age = IntegerField('age',validators=[DataRequired()])
+    address = StringField('address',validators=[DataRequired()])
+    contact_no = StringField('contact_no',validators=[DataRequired()])
+    password = PasswordField('password',validators=[DataRequired()])
+    password1 = PasswordField('Repeat Password')
+    image = StringField('image', validators=[DataRequired()])
+
+
+
+    # class MyForm(FlaskForm):
+    # email = StringField('Email Address', [validators.Length(min=6, max=35)])
+    # name = StringField('name', validators=[DataRequired()])
+    # age = StringField('age', [validators.Length(min=1, max=2)])
+    # address = StringField('address',validators=[DataRequired()])
+    # contact_no = StringField('contact_no', [validators.Length(min=10, max=10)])
+    # password = PasswordField('password', [validators.DataRequired(),validators.EqualTo('password1', message='Passwords must match')])
+    # password1 = PasswordField('Repeat Password')
+    # image = StringField('image', validators=[DataRequired()])
+
+
+
 
 # bpdb.set_trace() 
 class tbl_register(db.Model):
@@ -97,6 +130,19 @@ def index():
     # bpdb.set_trace()
     return render_template('index.html')
 
+
+
+# @app.route('/index2',methods=["POST","GET"])
+# def index2():
+#     form=MyForm()
+#     # bpdb.set_trace()
+#     if form.validate_on_submit():
+#         return redirect('/success')
+#     return render_template('index2.html',form=form)
+
+
+
+
 @app.route('/log',methods=["POST","GET"])
 def log():
     if request.method =="POST":
@@ -111,16 +157,31 @@ def log():
 
 @app.route('/signup',methods=["POST","GET"])
 def signup():
-    # bpdb.set_trace()
-    
-    if request.method == 'POST':
-        register = tbl_register(email=request.form['email'],name=request.form['name'],age= request.form['age'],address=request.form['address'], contact_no=request.form['contact_no'],password=request.form['password'],usertype=request.form['usertype'],status="pending",image=request.form['image'])
+    form=MyForm(request.form)
+    if request.method == 'POST' and form.validate_on_submit():
+        register = tbl_register(email=form.email.data,name=form.name.data,age=form.age.data,address=form.address.data,contact_no=form.contact_no.data,password=form.password.data,usertype=request.form['usertype'],status="pending",image=form.image.data)
         db.session.add(register)
         db.session.commit()
-        # flash('Record was successfully added')
         return redirect(url_for('show_all'))
     else:   
-        return render_template('login.html') 
+        return render_template('login.html',form=form) 
+
+
+
+
+# @app.route('/signup',methods=["POST","GET"])
+# def signup():
+#     form=RegistrationForm(request.form)
+#     #bpdb.set_trace()
+#     if request.method =="POST" and form.validate():
+#         #bpdb.set_trace()
+#         user = signup(form.id.data, form.firstname.data, form.lastname.data, form.username.data, form.email.data,form.password.data,form.confirmpassword.data)
+#         db.session.add(user)
+#         return redirect(url_for('users'))
+#     else:   
+#         return render_template('signup.html',form=form) 
+
+
 
 
 @app.route('/add_blog/<email>',methods=["GET","POST"])
