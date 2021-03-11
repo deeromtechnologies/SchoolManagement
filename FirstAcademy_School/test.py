@@ -6,14 +6,24 @@ from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField
 from wtforms.validators import DataRequired
-from wtforms import Form, BooleanField, StringField,IntegerField, PasswordField, validators
-
+from wtforms import Form, BooleanField, StringField,IntegerField, PasswordField, validators,ValidationError
+from flask_mail import Mail, Message
 
 now = datetime.now()
 id = uuid.uuid1()
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///First_Academy.sqlite3'
 db = SQLAlchemy(app)
+
+mail= Mail(app)
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'abcd@gmail.com'
+app.config['MAIL_PASSWORD'] = '********'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+mail = Mail(app)
 
 app.secret_key="4322"
 
@@ -24,26 +34,20 @@ class MyForm(FlaskForm):
     name = StringField('name', validators=[DataRequired()])
     age = IntegerField('age',validators=[DataRequired()])
     address = StringField('address',validators=[DataRequired()])
-    contact_no = StringField('contact_no',validators=[DataRequired()])
-    password = PasswordField('password',validators=[DataRequired()])
+    contact_no = StringField('contact_no',validators=[DataRequired(),validators.Length(10)])
+    password = PasswordField('password',validators=[DataRequired(),validators.EqualTo('password1', message='Passwords must match')])
     password1 = PasswordField('Repeat Password')
     image = StringField('image', validators=[DataRequired()])
+    title = StringField('title', validators=[DataRequired()])
+    content = StringField('content', validators=[DataRequired()])
 
-
-
-    # class MyForm(FlaskForm):
-    # email = StringField('Email Address', [validators.Length(min=6, max=35)])
-    # name = StringField('name', validators=[DataRequired()])
-    # age = StringField('age', [validators.Length(min=1, max=2)])
-    # address = StringField('address',validators=[DataRequired()])
-    # contact_no = StringField('contact_no', [validators.Length(min=10, max=10)])
-    # password = PasswordField('password', [validators.DataRequired(),validators.EqualTo('password1', message='Passwords must match')])
-    # password1 = PasswordField('Repeat Password')
-    # image = StringField('image', validators=[DataRequired()])
-
-
-
-
+class Blogedit(FlaskForm):
+   
+    email = StringField('email', validators=[DataRequired()])
+    name = StringField('name', validators=[DataRequired()])
+    title= StringField('title', validators=[DataRequired()])
+    image= StringField('image', validators=[DataRequired()])
+    content = StringField('content', validators=[DataRequired()])    
 # bpdb.set_trace() 
 class tbl_register(db.Model):
 
@@ -108,12 +112,13 @@ def detail_page(email):
 
 
 
-@app.route('/blog_display')
-def blog_display():
-    result1=tbl_blog.query.all()
+@app.route('/blog_display/<email>')
+def blog_display(email):
+    # result1=tbl_blog.query.all()
+    result1=tbl_blog.query.filter_by(email=email).first()
     # bpdb.set_trace()
-    return render_template('blog_display.html',result=result1 )    
-
+    return render_template('blog_display.html',user=result1 )    
+    
 
 # @app.route('/edit_profile/<email>')
 # def edit_profile(email):
@@ -162,58 +167,30 @@ def signup():
         register = tbl_register(email=form.email.data,name=form.name.data,age=form.age.data,address=form.address.data,contact_no=form.contact_no.data,password=form.password.data,usertype=request.form['usertype'],status="pending",image=form.image.data)
         db.session.add(register)
         db.session.commit()
+        msg = Message('Hello User..You registration completed successfully', sender = 'abcd@gmail.com', recipients = [form.email.data])
+        msg.body = "Thank you for registering with us "
+        mail.send(msg)
+        # return "Sent"
         return redirect(url_for('show_all'))
     else:   
         return render_template('login.html',form=form) 
 
 
-
-
-# @app.route('/signup',methods=["POST","GET"])
-# def signup():
-#     form=RegistrationForm(request.form)
-#     #bpdb.set_trace()
-#     if request.method =="POST" and form.validate():
-#         #bpdb.set_trace()
-#         user = signup(form.id.data, form.firstname.data, form.lastname.data, form.username.data, form.email.data,form.password.data,form.confirmpassword.data)
-#         db.session.add(user)
-#         return redirect(url_for('users'))
-#     else:   
-#         return render_template('signup.html',form=form) 
-
-
+    
 
 
 @app.route('/add_blog/<email>',methods=["GET","POST"])
 def add_blog(email):
     # bpdb.set_trace()
-    
+    form=MyForm(request.form)
     if request.method == 'POST':
-        
-        blog = tbl_blog(bid=id.hex,bdate=now,email=request.form['email'],name=request.form['name'],title= request.form['title'],image=request.form['image'], content=request.form['content'],blogtype=request.form['blogtype'])
+        blog = tbl_blog(bid=id.hex,bdate=now,email=request.form['email'],name=request.form['name'],title= form.title.data,image=form.image.data, content=form.content.data,blogtype=request.form['blogtype'])
         db.session.add(blog)
         db.session.commit()
         email1=request.form['email']
         return redirect(url_for('blog_display',email=email1))
     result1=tbl_register.query.filter_by(email=email).first()   
-    return render_template('add_blog.html',result=result1) 
-
-# @app.route('/add_blog/<username>',methods=["GET","POST"])
-# def add_blog(username):
-#     # bpdb.set_trace()
-    
-#     if request.method == 'POST':
-#         blog = Blog(username=request.form['username'],name=request.form['name'],title= request.form['title'],image=request.form['image'], des=request.form['des'])
-#         db.session.add(blog)
-#         db.session.commit()
-#         return redirect(url_for('blog'))
-#     result1=Register.query.filter_by(username=username).first()
-#     return render_template('addblog.html',result=result1)
-
-
-
-
-
+    return render_template('add_blog.html',result=result1,form=form) 
 
 
 
@@ -224,8 +201,29 @@ def blogs():
 def logout():
     
     # bpdb.set_trace()
-    session.pop('username', None)
+    session.pop('email', None)
     return redirect(url_for('log')) 
+
+
+
+@app.route('/edit/<email>',methods = ['GET','POST'])
+def edit(email):
+    form = Blogedit(request.form)
+    bedit= tbl_blog.query.filter_by(email=email).first()
+    if request.method == 'POST':
+        if bedit:
+            db.session.delete(bedit)
+            db.session.commit()
+            bedit = tbl_blog(bid=id.hex,bdate=now,email=form.email.data,name=form.name.data,title= form.title.data,image=form.image.data, content=form.content.data,blogtype=request.form['blogtype'])
+            db.session.add(bedit)
+            db.session.commit()
+            email=form.email.data
+            # return render_template('blog_display.html',user=email)
+            return "You are successfully updated the blog"
+        return f"Blog with email = {email} Does not exist"
+    result1=tbl_blog.query.filter_by(email=email).first()
+    return render_template('edit.html', result=result1,form=form)
+
 
 
 if __name__ == '__main__':

@@ -113,33 +113,36 @@ background-color: #daa520;
 <body>
 <form action="#" method="POST" style="border:1px solid #ccc">
   <div class="container">
-    <h1>Add Blog</h1>
-    <p>Please fill in this form to create your blog.</p>
+    <h1>Edit Blog</h1>
+    <p>EDit your blog</p>
     <hr>
     {{ form.csrf_token }}
     
- 
     <label for="email"><b>Email Id</b></label>
-    <input type="text"  name="email" value="{{result.email}}"required readonly="">
-    <label for="name"><b>Full Name</b></label>
-  
-    <input type="text" placeholder="Enter Name" name="name" value="{{result.name}}" required readonly="">
+    <!-- <input type="text"  name="email" value="{{result.email}}"required readonly=""> -->
+    {{ form.email(value=result.email) }}
+    
+    <label for="name"><b>Blogger Name</b></label>
+    <!-- <input type="text" placeholder="Enter Name" name="name" value="{{result.name}}" required readonly=""> -->
+    {{ form.name(value=result.name) }}
 
     <label for="title"><b>{{ form.title.label }}</b></label>
-    {{ form.title() }}
+    {{ form.title(value=result.title) }}
+    <!-- <label for="title"><b>Title</b></label>
+    <input type="text" placeholder="Enter Title" name="title" required> -->
 
     <label for="image"><b>{{ form.image.label }}</b></label>
-    {{ form.image() }}
+   {{ form.image(value=result.image) }}
     <!-- <label for="image"><b>Image</b></label>
     <input type="text" placeholder="Enter image url here" name="image" required> -->
     <label for="content"><b>{{ form.content.label }}</b></label>
-    {{ form.content() }}
+   {{ form.content(value=result.content) }}
     <!-- <label for="content"><b>Content</b></label>
     <input type="text" placeholder="Enter blog content" name="content" required> -->
     <label for="usertype"><b>Blog Type</b></label>
     <select id="cars" name="blogtype">
-  <option value="Faculty">Faculty</option>
-  <option value="Student">Student</option>
+  <option value="Faculty">Event</option>
+  <option value="Student">Achievement</option>
   </select>
 
     <div class="clearfix">
