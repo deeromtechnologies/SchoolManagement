@@ -8,6 +8,7 @@ from wtforms import StringField
 from wtforms.validators import DataRequired
 from wtforms import Form, BooleanField, StringField,IntegerField, PasswordField, validators,ValidationError
 from flask_mail import Mail, Message
+from flask_login import login_required, current_user
 # import os
 # from sqla_wrapper import SQLAlchemy
 from flask_login import UserMixin
@@ -39,7 +40,7 @@ def load_user(email):
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'abhi#####@gmail.com'
+app.config['MAIL_USERNAME'] = 'abhirami###@gmail.com'
 app.config['MAIL_PASSWORD'] = '#'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
@@ -246,7 +247,8 @@ def blogs():
 def logout():
     
     # bpdb.set_trace()
-    session.pop('email', None)
+    # session.pop('email', None)
+    session.clear()
     return redirect(url_for('log')) 
 
 
@@ -287,7 +289,10 @@ def delete(bid):
     return render_template('blog_display.html')
 
 
-
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', name=current_user.name, mail=current_user.email)
 
 
 if __name__ == '__main__':
