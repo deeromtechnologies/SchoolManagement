@@ -8,6 +8,14 @@ from wtforms import StringField
 from wtforms.validators import DataRequired
 from wtforms import Form, BooleanField, StringField,IntegerField, PasswordField, validators,ValidationError
 from flask_mail import Mail, Message
+# import os
+# from sqla_wrapper import SQLAlchemy
+from flask_login import UserMixin
+from flask_login import LoginManager
+from flask_login import login_user, logout_user, login_required
+from werkzeug.security import generate_password_hash, check_password_hash
+# from models import db
+app = Flask(__name__)
 
 now = datetime.now()
 id = uuid.uuid1()
@@ -15,19 +23,27 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///First_Academy.sqlite3'
 db = SQLAlchemy(app)
 
+app.secret_key="4322"
+login_manager = LoginManager()
+login_manager.init_app(app)
 mail= Mail(app)
+@login_manager.user_loader
+def load_user(email):
+    # return db.query(tbl_register).get(email)
+    return tbl_register.query.filter_by(email=email).first()
+    # from main import main as main_blueprint
+    # app.register_blueprint(main_blueprint)
+
+    app.run(debug=True)
+
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'abcd@gmail.com'
-app.config['MAIL_PASSWORD'] = '********'
+app.config['MAIL_USERNAME'] = 'abhi#####@gmail.com'
+app.config['MAIL_PASSWORD'] = '#'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
-mail = Mail(app)
-
-app.secret_key="4322"
-
-
+mail = Mail(app)  
 
 class MyForm(FlaskForm):
     email = StringField('Email Address',validators=[DataRequired(),validators.Length(min=6, max=35)])
@@ -49,7 +65,7 @@ class Blogedit(FlaskForm):
     image= StringField('image', validators=[DataRequired()])
     content = StringField('content', validators=[DataRequired()])    
 # bpdb.set_trace() 
-class tbl_register(db.Model):
+class tbl_register(UserMixin,db.Model):
 
     email= db.Column(db.String(120), primary_key=True)
     name= db.Column(db.String(120), unique=False, nullable=False)
@@ -112,22 +128,15 @@ def detail_page(email):
 
 
 
-@app.route('/blog_display/<email>')
+@app.route('/blog_display/<email>',methods=["GET","POST"])
 def blog_display(email):
+    if request.method =="POST":
+        return redirect(url_for('edit',email=email))
     # result1=tbl_blog.query.all()
     result1=tbl_blog.query.filter_by(email=email).first()
-    # bpdb.set_trace()
+    
     return render_template('blog_display.html',user=result1 )    
     
-
-# @app.route('/edit_profile/<email>')
-# def edit_profile(email):
-#     result1=tbl_register.query.filter_by(email=email).first()
-
-    
-#     return render_template('edit_profile.html',result=result1 )    
-
-
 
 
 @app.route('/index')
@@ -137,28 +146,64 @@ def index():
 
 
 
-# @app.route('/index2',methods=["POST","GET"])
-# def index2():
-#     form=MyForm()
-#     # bpdb.set_trace()
-#     if form.validate_on_submit():
-#         return redirect('/success')
-#     return render_template('index2.html',form=form)
+
+
+# @app.route('/log',methods=["POST","GET"])
+# def log():
+#     form=MyForm(request.form)
+#     if request.method =="POST":
+#         # email=request.form["email"]
+#         email=form.email.data
+#         login_user(user)
+#         # password=request.form["password"]
+#         # bpdb.set_trace()
+#         session["email"]=email
+#         session["password"]=password
+
+#         flask.flash('Logged in successfully.')
+#         next = flask.request.args.get('next')
+#         if not is_safe_url(next):
+#             return flask.abort(400)
+#         return redirect(url_for('add_blog',email=email))
+    
+#     return render_template('log.html',form=form)
 
 
 
 
-@app.route('/log',methods=["POST","GET"])
+@app.route('/log', methods=["POST","GET"])
 def log():
+    form=MyForm(request.form)
     if request.method =="POST":
-        email=request.form["email"]
-        password=request.form["password"]
-        # bpdb.set_trace()
-        session["email"]=email
-        session["password"]=password
+        email = request.form.get('email')
+        password = request.form.get('password')
+        remember = True if request.form.get('remember') else False
+        user=tbl_register.query.filter_by(email=email).first()
+        # user = db.query(tbl_register).filter_by(email=email).first()
+
+    # check if user actually exists
+    # take the user supplied password, hash it, and compare it to the hashed password in database
+        bpdb.set_trace()
+        if not user or not (user.password ==password):
+            return "Please check your login credentials and try again"
+            return redirect(url_for('log'))  # if user doesn't exist or password is wrong, reload the page
+
+    # if the above check passes, then we know the user has the right credentials
+        login_user(user, remember=remember)
+        # flash('You have been logged in.')
         return redirect(url_for('add_blog',email=email))
-    else:
-        return render_template('log.html')
+    return render_template('log.html',form=form)
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/signup',methods=["POST","GET"])
 def signup():
@@ -167,7 +212,7 @@ def signup():
         register = tbl_register(email=form.email.data,name=form.name.data,age=form.age.data,address=form.address.data,contact_no=form.contact_no.data,password=form.password.data,usertype=request.form['usertype'],status="pending",image=form.image.data)
         db.session.add(register)
         db.session.commit()
-        msg = Message('Hello User..You registration completed successfully', sender = 'abcd@gmail.com', recipients = [form.email.data])
+        msg = Message('Hello User..You registration completed successfully', sender = 'abhiramis800@gmail.com', recipients = [form.email.data])
         msg.body = "Thank you for registering with us "
         mail.send(msg)
         # return "Sent"
@@ -210,6 +255,7 @@ def logout():
 def edit(email):
     form = Blogedit(request.form)
     bedit= tbl_blog.query.filter_by(email=email).first()
+    
     if request.method == 'POST':
         if bedit:
             db.session.delete(bedit)
@@ -223,6 +269,24 @@ def edit(email):
         return f"Blog with email = {email} Does not exist"
     result1=tbl_blog.query.filter_by(email=email).first()
     return render_template('edit.html', result=result1,form=form)
+
+
+
+# bpdb.set_trace() 
+@app.route('/delete/<bid>', methods=['GET','POST'])
+def delete(bid):
+    dele = tbl_blog.query.filter_by(bid=bid).first()
+    # if request.method == 'POST':
+    if dele:
+        db.session.delete(dele)
+        db.session.commit()
+            # return redirect('/delete')
+        return "you deleted a blog"
+    abort(404)
+ 
+    return render_template('blog_display.html')
+
+
 
 
 

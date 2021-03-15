@@ -126,13 +126,12 @@ width: 50%;
   <div class="container">
     <h1>Login</h1>
     <hr>
-
-    <label for="email"><b>Email Id</b></label>
-    <input type="text" placeholder="Enter Email" name="email" required><br>
-
-    <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required><br>
+    {{ form.csrf_token }}
     
+    {{ form.email(placeholder="Enter Email") }}
+    <br>
+    {{ form.password(placeholder="Enter Password") }}
+     <br>
     <label>
       <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
     </label>

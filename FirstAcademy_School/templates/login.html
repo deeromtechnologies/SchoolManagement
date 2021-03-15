@@ -129,44 +129,40 @@ background-color: #daa520;
     <hr>
     {{ form.csrf_token }}
     <label for="email"><b>{{ form.email.label }}</b></label>
-    <!-- <input type="text"  name="email" required> -->
+    
     {{ form.email() }}
-    <!-- <label for="name"><b>Full Name</b></label>
-    <input type="text" placeholder="Enter Full Name" name="name" required>
- -->
+    
     <label for="name"><b>{{ form.name.label }}</b></label>
     {{ form.name() }}
-   <!--  <input type="text" placeholder="Enter Name" name="name" required> -->
+  
     <label for="age"><b>{{ form.age.label }}</b></label>
      {{ form.age() }}
-    <!-- <input type="text" placeholder="Enter Email" name="age" required> -->
+    
 
     <label for="address"><b>{{ form.address.label}}</b></label>
     {{ form.address() }}
-    <!-- <input type="text" placeholder="Enter Email" name="address" required> -->
+   
 
     <label for="contact_no"><b>{{ form.contact_no.label}}</b></label>
     {{ form.contact_no(size=10) }}
-    <!-- <input type="text" placeholder="Enter mobile" name="contact_no" required> -->
-
+   
 
     <label for="password"><b>{{ form.password.label}}</b></label>
      {{ form.password() }}
-    <!-- <input type="password" placeholder="Enter Password" name="password" required> -->
-
-    <label for="psw"><b>{{ form.password1.label}}</b></label>
-     {{ form.password() }}
-    <!-- <input type="password" placeholder="Repeat Password" name="psw" required> -->
+    
+    <label for="password1"><b>{{ form.password1.label}}</b></label>
+     {{ form.password1() }}
+   
     <label for="usertype"><b>User Type</b></label>
     <select id="cars" name="usertype">
-  <option value="fac">Faculty</option>
-  <option value="st">Student</option>
-  <option value="paren">Parent</option>
+  <option value="Faculty">Faculty</option>
+  <option value="Student">Student</option>
+  <option value="Parent">Parent</option>
   
 </select>
     <label for="image"><b>{{ form.image.label}}</b></label>
      {{ form.image() }}
-    <!-- <input type="text" placeholder="Ente text here" name="image" required> -->
+
 
     <label>
       <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me

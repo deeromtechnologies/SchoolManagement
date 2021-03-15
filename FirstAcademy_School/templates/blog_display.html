@@ -1,15 +1,81 @@
 <!DOCTYPE html>
-<html lang = "en">
-   <head></head>
-   <body>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="css/main.css"> -->
+<link href="{{ url_for('static',filename='main.css')}}" rel="stylesheet">
+<style type="text/css">
+  
+  .header{
+ background-image: url("/static/images/q.jpeg");
+ background-attachment: fixed;
+ background-size: cover;
+ background-position: center;
+}
+
+</style>
+</head>
+<body>
+
+<div class="navbar">
+  <br><a class="navbar-brand" href="#"><img src="/static/images/logo.png" alt="image" height="100 px" width="100 px"></a>
+  <img src="/static/images/firsta.png" alt="image"  width="250 px"><br><br>
+  <a href="index.html"><b>Home</a>
+  <a href="about.html">About</a>
+   
+   <a href="gallery.html">Gallery</a>
+   <div class="dropdown">
+    <button class="dropbtn"><b>Classes 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="404.html">Admissions</a>
+      <a href="500.html">Tution fee</a>
       
+    </div>
+  </div> 
+
+  <div class="dropdown">
+    <button class="dropbtn"><b>Login
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      <a href="{{url_for('signup')}}">Sign Up</a>
+      <a href="{{url_for('log')}}">Login</a>
       
+    </div>
+  </div> 
+  <div class="dropdown">
+    <button class="dropbtn"><b>Blogs
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+      
+      <a href="{{url_for('blogs')}}">Events</a>
+       <a href="404.html">Achievements</a>
+       <a href="500.html">Facilities</a>
+      
+    </div>
+  </div> 
+  <a href="staff.html">Faculties</a>
+  <a href="contact.html">Contact</a>
+
+<div class="search-container">
+    <form action="/action_page.html">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+  </div>
+      <br><br>
+      <h1>My Blogs</h1><br><br><br><br>
       {%- for message in get_flashed_messages() %}
          {{ message }}
       {%- endfor %}
-		
+    
       <!-- <h3><a href = "{{ url_for('signup') }}">Edit Profile</a></h3> -->
-      
+      <form method="POST" action="#">
       <table border='3'>
          <thead>
           
@@ -28,7 +94,7 @@
          </thead>
 
          <tbody>
-            {% for user in result %}
+            
                <tr>
                   <td>{{ user.bid }}</td>
                   <td>{{ user.bdate }}</td>
@@ -38,9 +104,13 @@
                   <td>{{ user.image}}</td>
                   <td>{{ user.content}}</td>
                    <td>{{ user.blogtype}}</td>
+                   
+                   <td><input type="submit" value="Edit"></td>
+                  <td><a href='{{ url_for( "delete" , bid=user.bid ) }}'><button type="button">Delete</button></a></td>
                </tr>
-               {%endfor%}
+              
                     </tbody>
-      </table>
+      </table></form>
+
    </body>
 </html>
